@@ -15,8 +15,7 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(
-            name: "ScreenGuard",
-            path: "Sources/screenGuard/Core"
+            name: "ScreenGuard"
         ),
         .testTarget(
             name: "ScreenGuardTests",
