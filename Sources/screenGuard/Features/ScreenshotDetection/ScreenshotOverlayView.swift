@@ -33,7 +33,7 @@ public class ScreenshotOverlayView: UIView {
         } else {
             // Default behavior: Show a message if no custom view is passed
             let messageLabel = UILabel()
-            messageLabel.text = "Default behaviour."
+            messageLabel.text = "Oops! Screenshot is not allowed."
             messageLabel.textColor = .white
             messageLabel.textAlignment = .center
             addSubview(messageLabel)
