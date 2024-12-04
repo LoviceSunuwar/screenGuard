@@ -11,32 +11,34 @@ public class ScreenshotOverlayView: UIView {
     
     private var customView: UIView?
     
-    // Initialize the view with an optional custom view
     public init(frame: CGRect, customView: UIView? = nil) {
         self.customView = customView
         super.init(frame: frame)
         
-        // Set background color with transparency for overlay effect
+        // Set the overlay background color with transparency
         backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        
-        // If a custom view is provided, add it to the overlay
+
+        // If a custom view (e.g., button) is passed, add it to the center of the overlay
         if let customView = customView {
             addSubview(customView)
             
-            // Center the custom view in the overlay
+            // Use Auto Layout to center the custom view (button) in the middle of the screen
             customView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 customView.centerXAnchor.constraint(equalTo: centerXAnchor),
-                customView.centerYAnchor.constraint(equalTo: centerYAnchor)
+                customView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                customView.widthAnchor.constraint(equalToConstant: 300),  // Adjust width
+                customView.heightAnchor.constraint(equalToConstant: 60)   // Adjust height
             ])
         } else {
-            // Default behavior: Show a message if no custom view is provided
+            // Default behavior: Show a message if no custom view is passed
             let messageLabel = UILabel()
-            messageLabel.text = "Oops! Screenshot is not allowed."
+            messageLabel.text = "Default behaviour."
             messageLabel.textColor = .white
             messageLabel.textAlignment = .center
             addSubview(messageLabel)
             
+            // Auto Layout for message label
             messageLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -44,26 +46,28 @@ public class ScreenshotOverlayView: UIView {
             ])
         }
         
-        // Add gesture recognizer to detect taps outside the custom view
+        // Enable taps on the overlay view
+        isUserInteractionEnabled = true
+        
+        // Add tap gesture recognizer to dismiss the overlay when tapping outside custom view
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideView(_:)))
         self.addGestureRecognizer(tapGestureRecognizer)
     }
 
-    // Required for initialization from storyboard (if used)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // Handle tap gesture: remove the overlay if tapped outside the custom view
+    // Handle tap gesture to dismiss overlay if tapped outside of custom view
     @objc private func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
-        // Determine if the tap occurred outside the custom view
+        // Get the location of the tap within the overlay view
         let location = sender.location(in: self)
         
         if let customView = customView, !customView.frame.contains(location) {
-            // Remove the overlay if tapped outside the custom view
+            // If the tap is outside the custom view, remove the overlay
             self.removeFromSuperview()
         } else if customView == nil {
-            // Remove the overlay if no custom view is present (default behavior)
+            // If no custom view is passed, remove the overlay on any tap
             self.removeFromSuperview()
         }
     }
