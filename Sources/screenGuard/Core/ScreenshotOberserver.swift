@@ -14,6 +14,7 @@ public class ScreenshotObserver {
 
     public func registerObserver(action: @escaping () -> Void) {
         observer = NotificationCenter.default.addObserver(forName: UIApplication.userDidTakeScreenshotNotification, object: nil, queue: .main) { _ in
+            print("Screenshot detected!")  // Debugging line to check if the notification is triggered
             action()
         }
     }
