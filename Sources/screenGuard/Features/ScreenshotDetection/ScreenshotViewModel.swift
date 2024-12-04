@@ -8,18 +8,21 @@
 import Foundation
 
 public class ScreenshotViewModel {
-    private var screenshotObserver: ScreenshotObserver
+    private var screenshotObserver: ScreenshotObserver?
 
     public var onScreenshotDetected: (() -> Void)?
 
     public init() {
         screenshotObserver = ScreenshotObserver()
-        screenshotObserver.onScreenshotDetected = { [weak self] in
-            self?.onScreenshotDetected?()
-        }
     }
 
     public func startObserving() {
-        screenshotObserver.startObserving()
+        screenshotObserver?.registerObserver {
+            self.onScreenshotDetected?()
+        }
+    }
+
+    public func stopObserving() {
+        screenshotObserver?.removeObserver()
     }
 }
