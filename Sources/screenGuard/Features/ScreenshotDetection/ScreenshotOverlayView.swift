@@ -36,10 +36,6 @@ public class ScreenshotOverlayView: UIView {
                 messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
         }
-        
-        // Add a tap gesture recognizer to detect taps anywhere in the overlay
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideView(_:)))
-        self.addGestureRecognizer(tapGestureRecognizer)
     }
 
     // This is required by the NSCoder when initializing from storyboard (if used)
@@ -49,19 +45,20 @@ public class ScreenshotOverlayView: UIView {
 
     // Handle tap gesture and remove the overlay if tapped outside the custom view
     @objc func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
-        // Get the location of the tap relative to the ScreenshotOverlayView instance (self)
-        let location = sender.location(in: self)
-        
+        // Get the location of the tap relative to the window (not the overlay view)
+        guard let window = UIApplication.shared.windows.first else { return }
+        let location = sender.location(in: window)
+
         // Print the location of the tap to debug
         print("Tap Location: \(location)")
         
         // If the tap is outside the custom view, remove the overlay
-        // Check if the location is outside of the customView's frame
-        if let customView = customView, !customView.frame.contains(location) {
-            print("Tapped outside the custom view. Removing overlay.")
+        // Check if the location is outside the screenshot overlay and custom sheet view's frame
+        if let customView = customView, !customView.frame.contains(location), !self.frame.contains(location) {
+            print("Tapped outside the overlay and custom view. Removing overlay.")
             self.removeFromSuperview() // Remove the overlay view from superview
         } else {
-            print("Tapped inside the custom view.")
+            print("Tapped inside the custom view or overlay.")
         }
     }
 }
