@@ -61,4 +61,5 @@ public class ScreenshotOverlayView: UIView {
             print("Tapped inside the custom view or overlay.")
         }
     }
+
 }
