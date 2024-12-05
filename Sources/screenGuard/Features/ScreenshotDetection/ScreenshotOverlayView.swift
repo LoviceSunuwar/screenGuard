@@ -54,14 +54,20 @@ public class ScreenshotOverlayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+
     // Handle tap gesture and remove the overlay if tapped outside the custom view
     @objc private func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
-        // Check if the tap is outside the custom view
         let location = sender.location(in: self)
         
-        // If no custom view is present, remove the overlay on any tap
-        if customView == nil || !customView!.frame.contains(location) {
+        // Check if the tap is outside the custom view
+        if let customView = customView {
+            if !customView.frame.contains(location) {
+                self.removeFromSuperview()
+            }
+        } else {
+            // If no custom view is present, remove the overlay on any tap
             self.removeFromSuperview()
         }
     }
+
 }
