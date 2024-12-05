@@ -1,10 +1,3 @@
-//
-//  ScreenshotOverlayView.swift
-//  screenGuard
-//
-//  Created by Lovice Sunuwar on 03/12/2024.
-//
-
 import UIKit
 
 public class ScreenshotOverlayView: UIView {
@@ -54,23 +47,21 @@ public class ScreenshotOverlayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     // Handle tap gesture and remove the overlay if tapped outside the custom view
     @objc func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
         // Get the location of the tap relative to the ScreenshotOverlayView instance (self)
         let location = sender.location(in: self)
         
-        // Print the location of the tap for debugging
+        // Print the location of the tap to debug
         print("Tap Location: \(location)")
         
-        // If the tap is outside the ScreenshotOverlayView, remove the overlay
-        if !self.frame.contains(location) {
+        // If the tap is outside the custom view, remove the overlay
+        // Check if the location is outside of the customView's frame
+        if let customView = customView, !customView.frame.contains(location) {
             print("Tapped outside the custom view. Removing overlay.")
-            self.removeFromSuperview()
+            self.removeFromSuperview() // Remove the overlay view from superview
         } else {
             print("Tapped inside the custom view.")
         }
     }
-
-
 }
