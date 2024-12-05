@@ -56,17 +56,21 @@ public class ScreenshotOverlayView: UIView {
 
 
     // Handle tap gesture and remove the overlay if tapped outside the custom view
-    @objc private func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: self)
+    @objc func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
+        guard let screenshotOverlayView = screenshotOverlayView else { return }
         
-        // Check if the tap is outside the custom view
-        if let customView = customView {
-            if !customView.frame.contains(location) {
-                self.removeFromSuperview()
-            }
+        // Get the location of the tap relative to the overlay view
+        let location = sender.location(in: screenshotOverlayView)
+        
+        // Print the location of the tap to debug
+        print("Tap Location: \(location)")
+        
+        // If the tap is outside the screenshot overlay, remove the overlay
+        if !screenshotOverlayView.frame.contains(location) {
+            print("Tapped outside the custom view. Removing overlay.")
+            screenshotOverlayView.removeFromSuperview()
         } else {
-            // If no custom view is present, remove the overlay on any tap
-            self.removeFromSuperview()
+            print("Tapped inside the custom view.")
         }
     }
 
