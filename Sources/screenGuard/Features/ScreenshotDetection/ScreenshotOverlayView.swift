@@ -43,7 +43,7 @@ public class ScreenshotOverlayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
+    @objc public func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
         // Get the location of the tap relative to the window
         guard let window = UIApplication.shared.windows.first else { return }
         let location = sender.location(in: window)
