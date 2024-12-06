@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public class ScreenshotViewModel {
     private var screenshotObserver: ScreenshotObserver?

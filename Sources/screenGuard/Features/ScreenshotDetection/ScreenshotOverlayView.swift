@@ -1,3 +1,4 @@
+// ScreenshotOverlayView.swift
 import UIKit
 
 public class ScreenshotOverlayView: UIView {
