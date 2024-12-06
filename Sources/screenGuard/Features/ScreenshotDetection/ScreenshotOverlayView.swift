@@ -22,12 +22,9 @@ public class ScreenshotOverlayView: UIView {
                 customView.widthAnchor.constraint(equalToConstant: customView.frame.width),
                 customView.heightAnchor.constraint(equalToConstant: customView.frame.height)
             ])
-        } else {
-            // Show a default alert if no custom view is provided
-            showAlert()
         }
 
-        // Add a tap gesture recognizer to dismiss the overlay
+        // Add a tap gesture recognizer to dismiss the overlay and custom view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideView))
         addGestureRecognizer(tapGesture)
     }
@@ -37,35 +34,15 @@ public class ScreenshotOverlayView: UIView {
     }
 
     @objc private func handleTapOutsideView(_ sender: UITapGestureRecognizer) {
-        // Remove the overlay when tapped outside the custom view
-        guard let customView = customView else { return }
+        // Remove the overlay and the custom view when tapped outside the custom view
+        guard let customView = customView else {
+            removeFromSuperview()
+            return
+        }
         let location = sender.location(in: self)
         if !customView.frame.contains(location) {
-            removeFromSuperview()
-        }
-    }
-
-    private func showAlert() {
-        // Create an alert controller
-        let alertController = UIAlertController(
-            title: "Notice",
-            message: "Add your custom implementation here.",
-            preferredStyle: .alert
-        )
-
-        // Add an OK button to dismiss the overlay
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.removeFromSuperview()
-        }
-        alertController.addAction(okAction)
-
-        // Find the topmost view controller to present the alert
-        if let topController = UIApplication.shared.windows.first?.rootViewController {
-            var presentedController = topController
-            while let presented = presentedController.presentedViewController {
-                presentedController = presented
-            }
-            presentedController.present(alertController, animated: true, completion: nil)
+            customView.removeFromSuperview() // Remove the custom view
+            removeFromSuperview()           // Remove the overlay
         }
     }
 }
