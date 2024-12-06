@@ -10,6 +10,11 @@ A custom iOS overlay for detecting screenshots, preventing screenshots, and disp
 - **Dismissable Overlay**: The overlay can be dismissed by tapping outside of the custom view.
 - **Flexible Layout**: Easily place the custom view in the center, bottom, or top of the screen, depending on your needs.
 
+## Screenshot Overlay
+
+![ScreenRecording_12-05-202421-37-54_1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b583dc0d-ebca-4cdb-80e8-726482304bef)
+
+
 ## Installation
 
 You can install this package by adding it to your project manually or using Swift Package Manager.
