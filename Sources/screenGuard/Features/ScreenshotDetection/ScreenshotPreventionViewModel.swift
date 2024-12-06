@@ -41,7 +41,9 @@ public class ScreenshotPreventionViewModel {
 
     // Add a view controller to the block list for screenshots
     public func blockScreenshots(for viewController: UIViewController) {
-        blockedViewControllers.insert(viewController)
+        if let screenshotBlockableVC = viewController as? ScreenshotBlockable, screenshotBlockableVC.shouldBlockScreenshot {
+            blockedViewControllers.insert(viewController)
+        }
     }
 
     // Remove a view controller from the block list

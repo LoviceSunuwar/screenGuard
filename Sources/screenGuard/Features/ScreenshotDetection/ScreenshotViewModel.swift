@@ -5,7 +5,6 @@
 //  Created by Lovice Sunuwar on 03/12/2024.
 //
 
-import Foundation
 import UIKit
 
 public class ScreenshotViewModel {
