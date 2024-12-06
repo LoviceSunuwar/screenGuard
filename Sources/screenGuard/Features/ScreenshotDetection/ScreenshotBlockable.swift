@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ScreenshotBlockable {
+public protocol ScreenshotBlockable {
     var shouldBlockScreenshot: Bool { get }
     var shouldShowCustomOverlay: Bool { get }
 }
