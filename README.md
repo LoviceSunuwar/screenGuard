@@ -12,7 +12,7 @@ A custom iOS overlay for detecting screenshots, preventing screenshots, and disp
 
 ## Screenshot Overlay
 
-![ScreenRecording_12-05-202421-37-54_1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b583dc0d-ebca-4cdb-80e8-726482304bef)
+<img src="https://github.com/user-attachments/assets/b583dc0d-ebca-4cdb-80e8-726482304bef" alt="Screenshot Overlay" width="130" height="200">
 
 
 ## Installation
